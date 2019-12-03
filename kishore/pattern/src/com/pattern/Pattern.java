@@ -16,7 +16,7 @@ public class Pattern {
        }
 	 }
 	 System.out.println();
- 
+ //5r346554654675475654654656564
  }
 }
 }
