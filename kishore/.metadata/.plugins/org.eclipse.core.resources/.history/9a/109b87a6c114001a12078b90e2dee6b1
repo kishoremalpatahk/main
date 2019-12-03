@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="addData">
+<table border="1">
+<tr>
+<td>Frist :</td><td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td> Last Name : </td><td><input type="text" name="lname"></td>
+</tr>
+<tr>
+ <td>Contact number :</td><td><input type="text" name="cnno"></td>
+ </tr>
+ <tr>
+<td> Email :</td><td><input type="text" name="mailid"></td>
+</tr>
+<tr>
+ <td>birth date:</td><td><input type="text" name="date"></td>
+ </tr>
+ <tr>
+ <td>city:</td><td> <input type="text" name="city"></td>
+ </tr> </table>
+ <input type="submit" name="btn" value="Adddata"> 
+ <input type="reset" name="btn" value="clear"> 
+<a href="rview"><button type="button">view</button></a>
+<a href="/spring1939/"><button>home</button></a>
+</form>
+</body>
+</html>

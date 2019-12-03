@@ -1,0 +1,73 @@
+package controller;
+
+import java.text.ParseException;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import service.FormService;
+
+;
+
+
+
+
+
+@Controller
+//@RequestMapping("/product")
+public class FormController {
+	@Autowired
+	FormService formService;
+	
+	@RequestMapping("/")
+	public ModelAndView login() {
+		
+		return new ModelAndView("login"); 
+			}
+	
+	//requried to work 
+	@RequestMapping("/login")
+	{
+	 
+	}
+	
+	@RequestMapping("/rview")
+	public ModelAndView getAllProduct() {
+		List<Form> plist=formService.getAllBook();
+		return new ModelAndView("displaybook","plist",plist); 
+			
+	}
+	
+		
+	
+	@RequestMapping(value="/addBook")
+	public ModelAndView showAddform() {
+		return new ModelAndView("bookform","command",new Book());
+		
+		
+	}
+	
+	@RequestMapping(value="/addData", method=RequestMethod.GET)
+	public ModelAndView addProduct(@RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("qty") int qty,
+			@RequestParam("date") String date) throws ParseException {
+		  Book p=new Book(id,name,qty,date);
+		  bookService.addBook(p);
+		  return new ModelAndView("redirect:/books");
+		
+	}
+	
+
+	
+	
+	
+	
+
+}

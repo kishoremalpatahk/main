@@ -1,0 +1,33 @@
+package service;
+
+import java.text.ParseException;
+import java.util.List;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import beans.Form;
+import dao.Formdao;
+
+
+
+
+
+@Service
+public class FormService {
+	
+	@Autowired
+	Formdao formdao;
+
+	public List<Form> getAllData() {
+		// TODO Auto-generated method stub
+		return formdao.getAlldata();
+	}
+
+	public void getAdddata(Form P) {
+		// TODO Auto-generated method stub
+		formdao.addForm(P);
+	}
+	
+}

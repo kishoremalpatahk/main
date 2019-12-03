@@ -1,0 +1,99 @@
+package dao;
+
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.training.beans.Book;
+import com.training.beans.Person;
+
+@Repository
+
+public class Formdao {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	public boolean getloginById(Person e) {
+		String sql="select * from user where uid=? and password=?";
+try {	 Person r= jdbcTemplate.queryForObject(sql,new Object[] { e.getUid(),e.getPassword()},new BeanPropertyRowMapper<>(Person.class));
+if(r.getPassword().equals(e.getPassword())  && r.getUid()==e.getUid())
+    {
+		 System.out.println("found");
+		return true; 
+    }
+else {
+	//System.out.println("not found");
+			 
+	return false;
+	}
+} catch (EmptyResultDataAccessException f) {
+	return false;
+}
+
+}
+	
+	
+	public List<Book> getAllBook(){
+		String sql="select * from book12";
+		List<Book> plist=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Book.class));
+	return plist;
+	
+	//need to study
+	//var sql = "SELECT * FROM countries";
+//We define a query to retrieve all rows from the countries table.
+//var rowMapper = BeanPropertyRowMapper.newInstance(Country.class);
+
+	}
+
+
+
+	public int addbook(Book p) {
+		String sql="insert into book12 values(?,?,?,?)";
+		return jdbcTemplate.update(sql,new Object[] {p.getId(),p.getName(),p.getQty(),p.getDate()});
+		
+		
+	}
+
+
+
+	public Book getBookById(int id) {
+		String sql="select * from book12 where id=?";
+		
+		//jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Product>());
+		return (Book)jdbcTemplate.queryForObject(sql,new Object[] {id},new BeanPropertyRowMapper<>(Book.class));
+		
+		
+	/* return jdbcTemplate.query(queryProductByNumber, queryProductByNumberParameters, 
+	 * new BeanPropertyRowMapper(ProductDto.class));
+	 * return jdbcTemplate.queryForObject(sql,Object[]{id},new BeanPropertyRowMapper(Book.class));
+			*/
+		
+	}
+
+	
+	public int updateBook(Book p) {
+		String sql="update book12 set name=?,qty=?,date=? where id=?";
+		
+		return jdbcTemplate.update(sql,new Object[] {p.getName(),p.getQty(),p.getDate(),p.getId()});
+	}
+
+
+	
+	public int deleteBookById(int id) {
+		String sql="delete from  Book12 where id=?";
+		return jdbcTemplate.update(sql,new Object[] {id});
+	}
+
+
+	
+	
+}

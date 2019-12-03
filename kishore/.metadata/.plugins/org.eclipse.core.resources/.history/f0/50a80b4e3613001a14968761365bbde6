@@ -1,0 +1,62 @@
+package controller;
+
+import java.text.ParseException;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import beans.Form;
+import service.FormService;
+
+@Controller
+
+public class FormController {
+	@Autowired
+	FormService formService;
+	
+	@RequestMapping("/")
+	public ModelAndView login() {
+		
+		return new ModelAndView("login"); 
+			}
+	
+	//requried to work 
+	@RequestMapping("/refral")
+	public ModelAndView refral(){
+		return new ModelAndView("redirect:/Form");
+	}
+	
+	@RequestMapping("/rview")
+	public ModelAndView getAllProduct() {
+		List<Form> plist=formService.getAllData();
+		return new ModelAndView("displayform","plist",plist); 
+			
+	}
+	
+		
+	
+	@RequestMapping(value="/addData", method=RequestMethod.GET)
+	public ModelAndView addProduct(@RequestParam("name") String name,@RequestParam("lname") String lname,@RequestParam("cnno") String cnno,@RequestParam("mailid") String mailid, @RequestParam("date") String date,@RequestParam("city") String city) 
+			throws ParseException {
+	 Form p=new Form(name, lname, cnno, mailid, date, city);
+	 formService.getAdddata(p);
+		  return new ModelAndView("redirect:/login");
+		
+	}
+	
+
+//	
+			
+	
+	
+	
+
+}
